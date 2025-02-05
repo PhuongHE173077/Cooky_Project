@@ -1,28 +1,63 @@
-import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as React from 'react';
+import { Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import { Recipies } from '../components/Recipies/Recipies';
+import { Tips } from '../components/Recipies/Tips';
+import { Video } from '../components/Recipies/Video';
+import { Feather } from '@expo/vector-icons';
+
+const renderScene = SceneMap({
+  first: Recipies,
+  second: Video,
+  thirty: Tips,
+});
+
+const routes = [
+  { key: 'first', title: 'Recipies' },
+  { key: 'second', title: 'Videos' },
+  { key: 'thirty', title: 'Kitchen Tips' },
+];
 
 export const KitchenScreen = () => {
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.title}>
-        <Text style={{ color: 'white' }}>Kitchen</Text>
-        <Icon name="stars" size={24} color="#000" />
+      <TouchableOpacity style={styles.title}>
+        <Feather name='search' size={20} color='gray' />
+        <Text style={{ marginHorizontal: 20, color: 'gray' }}>300+ Recipies</Text>
+      </TouchableOpacity>
+
+      <View style={{ flex: 1 }}>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={props => (
+            <TabBar
+              {...props}
+              style={{ backgroundColor: '#fff' }}
+              indicatorStyle={{ backgroundColor: '#ff7979', height: 2 }}
+              activeColor={'black'}
+              inactiveColor={'#4b4b4b'}
+            />
+          )}
+        />
       </View>
+
     </ScrollView>
   )
 }
-
 const styles = StyleSheet.create({
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    backgroundColor: 'red',
-    padding: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 8,
+    borderRadius: 5,
   },
   container: {
-    flex: 1, backgroundColor: '#dfe6e9'
+    flex: 1
   },
 })

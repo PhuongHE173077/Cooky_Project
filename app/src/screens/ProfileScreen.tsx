@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons as Icon } from '@expo/vector-icons';
 
 export const ProfileScreen = () => {
   return (
@@ -115,5 +114,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   menuText: { marginLeft: 10, fontSize: 16 },
-  setting: { flexDirection: 'row', alignItems: 'center', padding: 15, backgroundColor: '#fff', marginTop: 20 },
+  setting: { flexDirection: 'row', alignItems: 'center', padding: 15, backgroundColor: '#fff', marginTop: 20, borderBottomColor: '#eee', },
 });
