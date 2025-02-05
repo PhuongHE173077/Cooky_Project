@@ -1,7 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+
 import HomeScreen from '../screens/HomeScreen';
+import { ProfileScreen } from '../screens/ProfileScreen';
+import { FoodScreen } from '../screens/FoodScreen';
+import { KitchenScreen } from '../screens/KitchenScreen';
+import { CartScreen } from '../screens/CartScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,21 +32,46 @@ export default function BottomNavigation() {
           ),
         }}
       />
+
       <Tab.Screen
-        name="Favorites"
-        component={HomeScreen} // Replace with Favorites screen
+        name="Foods"
+        component={FoodScreen}
         options={{
-          tabBarLabel: 'Favorites',
+          tabBarLabel: 'Foods',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="heart" color={color} size={24} />
+            <MaterialCommunityIcons name="food-fork-drink" color={color} size={24} />
           ),
         }}
       />
+
+
+      <Tab.Screen
+        name="Kitchen"
+        component={KitchenScreen}
+        options={{
+          tabBarLabel: 'Kitchen',
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="soup-kitchen" color={color} size={24} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          tabBarLabel: 'Cart',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="cart" color={color} size={24} />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="Profile"
-        component={HomeScreen} // Replace with Profile screen
+        component={ProfileScreen} // Replace with Profile screen
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Account',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={24} />
           ),
