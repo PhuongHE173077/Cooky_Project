@@ -1,63 +1,76 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons"; // Dùng icon thư viện
 
-export default function ProductCard({ product }) {
+const ProductCard = ({ product, onAddToCart }) => {
   return (
     <View style={styles.card}>
-      <Image
-        source={{ uri: product.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ3dU2YNn01QVCNDI5FLgsU0vBgwp_sSJx0Q&s' }}
-        style={styles.image}
-      />
+      <Image source={product.image} style={styles.image} />
       <Text style={styles.name}>{product.name}</Text>
-      <View style={styles.priceContainer}>
+      <Text style={styles.size}>{product.size}, Price</Text>
+      <View style={styles.footer}>
         <Text style={styles.price}>{product.price}</Text>
-        <TouchableOpacity style={styles.button} onPress={() => {/* Add your functionality here */ }}>
-          <Text style={styles.buttonText}>+</Text>
+        <TouchableOpacity style={styles.addButton} onPress={() => onAddToCart(product)}>
+          <Ionicons name="add" size={20} color="white" />
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    marginBottom: 15,
     flex: 1,
-    marginHorizontal: 5,
-    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    padding: 15,
+    margin: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: "#eee",
   },
   image: {
-    width: '100%',
-    height: 100,
-    borderRadius: 10,
+    width: 80,
+    height: 80,
+    resizeMode: "contain",
+    marginBottom: 10,
   },
   name: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#222",
+  },
+  size: {
     fontSize: 14,
-    fontWeight: 'bold',
+    color: "#777",
+    marginBottom: 10,
+  },
+  footer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 10,
   },
-  priceContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   price: {
-    fontSize: 12,
-    color: '#888',
-    marginVertical: 5,
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#000",
   },
-  button: {
-    backgroundColor: '#F36C24',
-    borderRadius: 20,
-    width: 25,
-    height: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 24, // Increased font size for a larger "+"
+  addButton: {
+    backgroundColor: "#27ae60",
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+export default ProductCard;

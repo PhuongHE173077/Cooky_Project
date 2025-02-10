@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
-import { Recipies } from '../components/Recipies/Recipies';
 import { Tips } from '../components/Recipies/Tips';
 import { Video } from '../components/Recipies/Video';
 import { Feather } from '@expo/vector-icons';
+import { Recipies } from '../components/Recipies/Recipies';
 
 const renderScene = SceneMap({
   first: Recipies,
