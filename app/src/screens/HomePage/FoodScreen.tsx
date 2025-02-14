@@ -1,10 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
-import { SearchScreen } from '../components/Foods/SearchScreen';
-import { FilterScreen } from '../components/Foods/FilterScreen';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import ProductCard from '../components/ProductCard';
+import { SearchScreen } from '../../components/Foods/SearchScreen';
+import ProductCard from '../../components/ProductCard';
+import { ScrollView } from 'react-native-gesture-handler';
+import { fetchAllProductsAPIs } from '../../apis';
 const Stack = createNativeStackNavigator();
 interface item {
   _id: string,
@@ -59,8 +60,17 @@ export const FoodScreen = () => {
         price: 0
       }
     ])
+
+  useEffect(() => {
+    fetchAllProductsAPIs()
+      .then(res => {
+        console.log(res);
+
+        setProducts(res)
+      })
+  }, [])
   return (
-    <View>
+    <ScrollView>
       <SearchScreen navigation='' />
       <FlatList
         data={products}
@@ -69,7 +79,7 @@ export const FoodScreen = () => {
         renderItem={({ item }) => <ProductCard product={item} onAddToCart={() => { }} />}
         columnWrapperStyle={styles.row}
       />
-    </View>
+    </ScrollView>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons, MaterialIcons as Icon } from '@expo/vector-icons';
 
-export const ProfileScreen = () => {
+export const ProfileScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.title}>
@@ -78,6 +78,11 @@ export const ProfileScreen = () => {
       <TouchableOpacity style={styles.menuItem}>
         <Ionicons name="settings-outline" size={24} color="#000" />
         <Text style={styles.menuText}>Setting</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Login')} >
+        <Ionicons name="settings-outline" size={24} color="#000" />
+        <Text style={styles.menuText}>Log out</Text>
       </TouchableOpacity>
     </ScrollView>
   );

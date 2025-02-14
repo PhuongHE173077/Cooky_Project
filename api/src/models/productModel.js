@@ -43,6 +43,17 @@ const getDetails = async (id) => {
   }
 }
 
+const getAll = async () => {
+  try {
+    //
+    const result = await GET_DB().collection(PRODUCTS_COLLECTION).find().toArray()
+
+    return result
+  } catch (error) {
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Not found')
+  }
+}
+
 const findById = async (id) => {
   try {
     return await GET_DB().collection(PRODUCTS_COLLECTION).findOne({ _id: new ObjectId(id) })
@@ -55,5 +66,6 @@ export const productModel = {
   PRODUCTS_COLLECTION,
   PRODUCTS_COLLECTION_SCHEMA,
   findById,
-  getDetails
+  getDetails,
+  getAll
 }

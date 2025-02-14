@@ -2,16 +2,18 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import HomeScreen from '../screens/HomePage/HomeScreen';
+import { FoodScreen } from '../screens/HomePage/FoodScreen';
+import { KitchenScreen } from '../screens/HomePage/KitchenScreen';
+import { CartScreen } from '../screens/HomePage/CartScreen';
+import { ProfileScreen } from '../screens/HomePage/ProfileScreen';
 
-import HomeScreen from '../screens/HomeScreen';
-import { ProfileScreen } from '../screens/ProfileScreen';
-import { FoodScreen } from '../screens/FoodScreen';
-import { KitchenScreen } from '../screens/KitchenScreen';
-import { CartScreen } from '../screens/CartScreen';
 
 const Tab = createBottomTabNavigator();
-
-export default function BottomNavigation() {
+interface Props {
+  navigation: any
+}
+const BottomNavigation: React.FC<Props> = ({ navigation }) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -80,3 +82,4 @@ export default function BottomNavigation() {
     </Tab.Navigator>
   );
 }
+export default BottomNavigation

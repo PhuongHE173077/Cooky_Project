@@ -16,6 +16,18 @@ const getDetails = async (id) => {
   }
 }
 
+const getAll = async () => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const result = await productModel.getAll()
+
+    return result
+  } catch (error) {
+    throw error
+  }
+}
+
 export const productService = {
-  getDetails
+  getDetails,
+  getAll
 }

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderColor: "#eee",
   },
   image: {
-    width: 80,
+    width: '100%',
     height: 80,
     resizeMode: "contain",
     marginBottom: 10,

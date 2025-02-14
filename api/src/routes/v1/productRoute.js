@@ -4,9 +4,7 @@ const express = require('express')
 const Router = express()
 
 Router.route('/')
-  .get((req, res) => {
-    res.status(200).json({ message: 'Hello World' })
-  })
+  .get(ProductController.getAll)
 
 Router.route('/:id')
   .get(ProductController.getDetails)

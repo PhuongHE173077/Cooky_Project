@@ -13,6 +13,18 @@ const getDetails = async (req, res, next) => {
   }
 }
 
+const getAll = async (req, res, next) => {
+  try {
+
+    const board = await productService.getAll()
+
+    return res.status(StatusCodes.OK).json(board)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const ProductController = {
-  getDetails
+  getDetails,
+  getAll
 }

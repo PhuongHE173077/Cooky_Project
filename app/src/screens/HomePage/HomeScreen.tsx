@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import CategorySelector from '../components/CategorySelector';
-import ProductList from '../components/ProductList';
+import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
+import CategorySelector from '../../components/CategorySelector';
+import ProductList from '../../components/ProductList';
 
 export default function HomeScreen() {
   return (
