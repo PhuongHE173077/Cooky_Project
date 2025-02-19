@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, Checkbox } from 'react-native-paper';
 
 
-export const FilterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [categories, setCategories] = useState<{ [key: string]: boolean }>({ Eggs: true, Noodles: false, Chips: false, FastFood: false });
-  const [brands, setBrands] = useState<{ [key: string]: boolean }>({ Cocalo: true, Madi: false, KaziFarmas: false });
+export const FilterScreen = ({ navigation }) => {
+  const [categories, setCategories] = useState < {} > ({ Eggs: true, Noodles: false, Chips: false, FastFood: false });
+  const [brands, setBrands] = useState < {} > ({ Cocalo: true, Madi: false, KaziFarmas: false });
 
   return (
     <View style={styles.container}>

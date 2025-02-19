@@ -1,23 +1,15 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SearchScreen } from '../../components/Foods/SearchScreen';
 import ProductCard from '../../components/ProductCard';
-import { ScrollView } from 'react-native-gesture-handler';
 import { fetchAllProductsAPIs } from '../../apis';
 const Stack = createNativeStackNavigator();
-interface item {
-  _id: string,
-  name: string,
-  image: string,
-  description: string,
-  rating: number,
-  price: number
-}
+
 
 export const FoodScreen = () => {
-  const [products, setProducts] = useState<item[]>(
+  const [products, setProducts] = useState(
     [
       {
         _id: '1',

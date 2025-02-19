@@ -1,6 +1,6 @@
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import * as React from 'react';
-import { ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { Transporting } from '../../components/Cart/Transporting';
 import ProductList from '../../components/ProductList';

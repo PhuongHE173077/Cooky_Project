@@ -6,14 +6,12 @@ import HomeScreen from '../screens/HomePage/HomeScreen';
 import { FoodScreen } from '../screens/HomePage/FoodScreen';
 import { KitchenScreen } from '../screens/HomePage/KitchenScreen';
 import { CartScreen } from '../screens/HomePage/CartScreen';
-import { ProfileScreen } from '../screens/HomePage/ProfileScreen';
-
+import { ProfileScreen } from './HomePage/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
-interface Props {
-  navigation: any
-}
-const BottomNavigation: React.FC<Props> = ({ navigation }) => {
+
+
+const BottomNavigation = ({ navigation }) => {
   return (
     <Tab.Navigator
       screenOptions={{

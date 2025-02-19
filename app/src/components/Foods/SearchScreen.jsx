@@ -5,14 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Checkbox, Button } from 'react-native-paper';
 
-interface Item {
-  id: string;
-  name: string;
-  price: string;
-  image: string;
-}
 
-const DATA: Item[] = [
+const DATA = [
   { id: '1', name: 'Egg Chicken Red', price: '$1.99', image: 'https://via.placeholder.com/100' },
   { id: '2', name: 'Egg Chicken White', price: '$1.50', image: 'https://via.placeholder.com/100' },
   { id: '3', name: 'Egg Pasta', price: '$15.99', image: 'https://via.placeholder.com/100' },
@@ -20,15 +14,11 @@ const DATA: Item[] = [
   { id: '5', name: 'Mayonnaise Eggless', price: '$4.99', image: 'https://via.placeholder.com/100' }
 ];
 
-type RootStackParamList = {
-  Search: undefined;
-  Filters: undefined;
-};
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
-export const SearchScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [query, setQuery] = useState<string>('');
+export const SearchScreen = ({ navigation }) => {
+  const [query, setQuery] = useState('');
   const filteredData = DATA.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
 
   return (

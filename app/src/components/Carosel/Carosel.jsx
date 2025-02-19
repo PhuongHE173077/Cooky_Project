@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Image, ScrollView, View, StyleSheet } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons';
-interface Props {
-  DATA: string[]
-}
-export const Carosel: React.FC<Props> = ({ DATA }) => {
+
+export const Carosel = ({ DATA }) => {
   const [imageIndex, setImageIndex] = useState(0)
 
   useEffect(() => {

@@ -1,10 +1,8 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-interface HomeScreenProps {
 
-}
-export const NotFound: React.FC<HomeScreenProps> = ({ }) => {
+export const NotFound = ({ }) => {
   return (
     <View style={styles.container}>
       <Image source={{
