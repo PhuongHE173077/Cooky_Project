@@ -3,26 +3,32 @@ import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { loginUserAPI } from '../../redux/user/userSlice';
+import { loginUserAPI, registerUserAPI } from '../../redux/user/userSlice';
 
-export const LoginScreen = ({ navigation }) => {
+export const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [erroConfirmPassword, setErrorConfirmPassword] = useState('')
   const [secureText, setSecureText] = useState(true);
+  const [secureText1, setSecureText1] = useState(true);
   const [errorPassword, setErrorPassword] = useState('');
   const [errorEmail, setErrorEmail] = useState('');
 
   const dispath = useDispatch()
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     setErrorEmail('');
     setErrorPassword('');
+    setErrorConfirmPassword('')
     if (!email) {
       setErrorEmail('Email is required');
     } else if (!password) {
       setErrorPassword('Password is required');
+    } else if (password !== confirmPassword) {
+      setErrorConfirmPassword('Confirm Password is not sample password')
     } else {
-      dispath(loginUserAPI)
+      dispath(registerUserAPI({ email, password }))
         .then(() => navigation.navigate('Home'))
     }
   };
@@ -30,7 +36,7 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: 'https://chupanh.vn/wp-content/uploads/2017/12/concept-chup-anh-mon-an-chum-anh-banh-ngot-nhin-la-me-ma00133.jpg' }} style={styles.logo} />
-      <Text style={styles.title}>Loging</Text>
+      <Text style={styles.title}>Sign Up</Text>
 
 
       <Text style={styles.subtitle}>Enter your emails and password</Text>
@@ -60,18 +66,35 @@ export const LoginScreen = ({ navigation }) => {
       </View>
       {errorPassword && <Text style={styles.error}>{errorPassword}</Text>}
 
+      <Text style={styles.label}>Confirm Password</Text>
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your password"
+          secureTextEntry={secureText1}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+
+        />
+        <TouchableOpacity onPress={() => setSecureText1(!secureText1)} style={styles.eyeIcon}>
+          <Ionicons name={secureText1 ? "eye-off" : "eye"} size={20} color="gray" />
+        </TouchableOpacity>
+      </View>
+      {erroConfirmPassword && <Text style={styles.error}>{erroConfirmPassword}</Text>}
+
+
 
       <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgotText}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginText}>Log In</Text>
+      <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+        <Text style={styles.loginText}>Sign up</Text>
       </TouchableOpacity>
 
       <Text style={styles.footerText}>
         Don't have an account?
-        <Text style={styles.signupText} onPress={() => navigation.navigate('SignUp')}> Signup</Text>
+        <Text style={styles.signupText} onPress={() => navigation.navigate('Login')}> Sign In</Text>
       </Text>
       <ToastContainer
         position="top-right"

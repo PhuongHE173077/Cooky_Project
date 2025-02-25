@@ -1,6 +1,9 @@
-import Joi from "joi"
-import { GET_DB } from "~/config/mongodb"
 import { EMAIL_RULE, EMAIL_RULE_MESSAGE, PASSWORD_RULE, PASSWORD_RULE_MESSAGE } from "~/utils/validations"
+
+const Joi = require("joi")
+const { ObjectId } = require("mongodb")
+const { GET_DB } = require("~/config/mongodb")
+
 
 const USER_ROLES = {
   CLIENT: 'client',
@@ -21,7 +24,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   role: Joi.string().valid(USER_ROLES.CLIENT, USER_ROLES.ADMIN).default(USER_ROLES.CLIENT),
 
 
-  isActive: Joi.boolean().default(false),
+  isActive: Joi.boolean().default(true),
   verifyToken: Joi.string(),
 
 
@@ -30,17 +33,73 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   _destroy: Joi.boolean().default(false)
 })
 
+
+const INVALID_UPDATE_FILEDS = ['_id', 'email', 'username', 'createdAt']
+
+
+const validateData = async (data) => {
+  return await USER_COLLECTION_SCHEMA.validateAsync(data, { abortEarly: false })
+}
+
+
 const findOneByEmail = async (email) => {
   try {
     return await GET_DB().collection(USER_COLLECTION_NAME).findOne({ email: email })
+
 
   } catch (error) {
     throw new Error(error)
   }
 }
 
+
+const findOneById = async (id) => {
+  try {
+    return await GET_DB().collection(USER_COLLECTION_NAME).findOne({ _id: new ObjectId(id) })
+
+
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+
+const createNew = async (data) => {
+  try {
+    const validData = await validateData(data)
+    return await GET_DB().collection(USER_COLLECTION_NAME).insertOne(validData)
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+
+
+
+const updateUser = async (userId, data) => {
+  try {
+    Object.keys(data).forEach((fieldName) => {
+      if (INVALID_UPDATE_FILEDS.includes(fieldName)) {
+        delete data[fieldName]
+      }
+    })
+
+
+    const result = await GET_DB().collection(USER_COLLECTION_NAME).findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: data },
+      { returnDocument: 'after' }
+    )
+    return result.value
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 export const userModal = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
-  findOneByEmail
+  findOneByEmail,
+  findOneById,
+  createNew,
+  updateUser
 }

@@ -9,7 +9,6 @@ const { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } = require("~/utils/validations"
 const PRODUCTS_COLLECTION = 'Products'
 const PRODUCTS_COLLECTION_SCHEMA = Joi.object({
   name: Joi.string().min(3).max(200).trim().strict().required(),
-  slug: Joi.string().min(3).trim().strict().required(),
 
   description: Joi.string().min(3).max(1000).trim().strict().required(),
   price: Joi.number().min(0).required(),
