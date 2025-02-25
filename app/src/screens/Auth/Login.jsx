@@ -22,7 +22,7 @@ export const LoginScreen = ({ navigation }) => {
     } else if (!password) {
       setErrorPassword('Password is required');
     } else {
-      dispath(loginUserAPI)
+      dispath(loginUserAPI({ email, password }))
         .then(() => navigation.navigate('Home'))
     }
   };
