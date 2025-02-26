@@ -96,11 +96,26 @@ const update = async (req, res, next) => {
 
   }
 }
+
+const getAll = async (req, res, next) => {
+  try {
+    const userId = req.jwtDecoded._id
+
+    const result = await userService.getAll(userId)
+
+    res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+
+
+  }
+}
 export const userController = {
   createNew,
   login,
   verifityAccount,
   logout,
   refreshToken,
-  update
+  update,
+  getAll
 }

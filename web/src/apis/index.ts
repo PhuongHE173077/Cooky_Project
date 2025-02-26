@@ -25,3 +25,7 @@ export const verifyUserAPI = async (data: any) => {
 export const refreshTokenAPI = async () => {
   return await axios.get(`v1/users/refresh_token`)
 }
+
+export const fetchAllUsersAPI = async () => {
+  return await axios.get(`api/v1/users`)
+}

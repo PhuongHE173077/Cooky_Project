@@ -1,49 +1,62 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, ReactNode } from 'react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
-import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
+import { selectCurrentUser } from 'src/redux/user/userSlice';
 
-// ----------------------------------------------------------------------
+// Lazy loaded pages
+const HomePage = lazy(() => import('src/pages/home'));
+const BlogPage = lazy(() => import('src/pages/blog'));
+const UserPage = lazy(() => import('src/pages/user'));
+const SignInPage = lazy(() => import('src/pages/sign-in'));
+const ProductsPage = lazy(() => import('src/pages/products'));
+const Page404 = lazy(() => import('src/pages/page-not-found'));
 
-export const HomePage = lazy(() => import('src/pages/home'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
-export const UserPage = lazy(() => import('src/pages/user'));
-export const SignInPage = lazy(() => import('src/pages/sign-in'));
-export const ProductsPage = lazy(() => import('src/pages/products'));
-export const Page404 = lazy(() => import('src/pages/page-not-found'));
-
-// ----------------------------------------------------------------------
-
+// Fallback Loader
 const renderFallback = (
   <Box display="flex" alignItems="center" justifyContent="center" flex="1 1 auto">
     <LinearProgress
       sx={{
         width: 1,
         maxWidth: 320,
-        bgcolor: (theme) => varAlpha(theme.vars.palette.text.primaryChannel, 0.16),
+        bgcolor: (theme) => `rgba(${theme.vars.palette.text.primaryChannel}, 0.16)`,
         [`& .${linearProgressClasses.bar}`]: { bgcolor: 'text.primary' },
       }}
     />
   </Box>
 );
 
+// Protected Route Component Props
+interface ProtectedRouteProps {
+  children: ReactNode;
+}
+
+// Protected Route Component
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  const currentUser = useSelector(selectCurrentUser);
+  return currentUser ? children : <Navigate to="/sign-in" replace />;
+};
+
+// Main Router Component
 export function Router() {
   return useRoutes([
     {
       element: (
-        <DashboardLayout>
-          <Suspense fallback={renderFallback}>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+        <ProtectedRoute>
+          <DashboardLayout>
+            <Suspense fallback={renderFallback}>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </ProtectedRoute>
       ),
       children: [
-        { element: <HomePage />, index: true },
+        { index: true, element: <HomePage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },

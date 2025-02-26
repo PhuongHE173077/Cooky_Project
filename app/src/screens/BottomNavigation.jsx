@@ -7,11 +7,17 @@ import { FoodScreen } from '../screens/HomePage/FoodScreen';
 import { KitchenScreen } from '../screens/HomePage/KitchenScreen';
 import { CartScreen } from '../screens/HomePage/CartScreen';
 import { ProfileScreen } from './HomePage/ProfileScreen';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../redux/user/userSlice';
 
 const Tab = createBottomTabNavigator();
 
 
 const BottomNavigation = ({ navigation }) => {
+  const currentUser = useSelector(selectCurrentUser);
+  if (!currentUser) {
+    navigation.navigate('Login')
+  }
   return (
     <Tab.Navigator
       screenOptions={{

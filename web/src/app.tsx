@@ -10,6 +10,9 @@ import { ThemeProvider } from 'src/theme/theme-provider';
 
 import { Iconify } from 'src/components/iconify';
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from './redux/user/userSlice';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -38,8 +41,9 @@ export default function App() {
 
   return (
     <ThemeProvider>
+
       <Router />
-      {githubButton}
+      {/* {githubButton} */}
       <ToastContainer />
     </ThemeProvider>
   );

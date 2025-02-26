@@ -26,7 +26,7 @@ export type UserProps = {
 };
 
 type UserTableRowProps = {
-  row: UserProps;
+  row: any;
   selected: boolean;
   onSelectRow: () => void;
 };
@@ -51,17 +51,17 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
 
         <TableCell component="th" scope="row">
           <Box gap={2} display="flex" alignItems="center">
-            <Avatar alt={row.name} src={row.avatarUrl} />
+            <Avatar alt={row.displayName} src={row.avatar} />
             {row.name}
           </Box>
         </TableCell>
 
-        <TableCell>{row.company}</TableCell>
+        <TableCell>{row.displayName}</TableCell>
 
         <TableCell>{row.role}</TableCell>
 
         <TableCell align="center">
-          {row.isVerified ? (
+          {row.isActive ? (
             <Iconify width={22} icon="solar:check-circle-bold" sx={{ color: 'success.main' }} />
           ) : (
             '-'
@@ -69,7 +69,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         </TableCell>
 
         <TableCell>
-          <Label color={(row.status === 'banned' && 'error') || 'success'}>{row.status}</Label>
+          <Label color={(row._destroy && 'error') || 'success'}>{row._destroy ? 'Banned' : 'Active'}</Label>
         </TableCell>
 
         <TableCell align="right">

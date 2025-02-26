@@ -34,4 +34,7 @@ Router.route('/update')
     multerUploadMiddlewares.upload.single('avatar'),
     userValidation.update,
     userController.update)
+
+Router.route('/')
+  .get(authMiddlewares.isAuthorized, userController.getAll)
 export const userRoutes = Router

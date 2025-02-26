@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -14,6 +14,7 @@ import { CartIcon } from '../product-cart-widget';
 import { ProductFilters } from '../product-filters';
 
 import type { FiltersProps } from '../product-filters';
+import { fetchAllProductsAPIs } from 'src/apis';
 
 // ----------------------------------------------------------------------
 
@@ -59,6 +60,14 @@ const defaultFilters = {
 
 export function ProductsView() {
   const [sortBy, setSortBy] = useState('featured');
+
+  const [products, setProducts] = useState(_products);
+
+  useEffect(() => {
+    fetchAllProductsAPIs().then((res: any) => {
+      setProducts(res)
+    })
+  })
 
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -131,7 +140,7 @@ export function ProductsView() {
       </Box>
 
       <Grid container spacing={3}>
-        {_products.map((product) => (
+        {products.map((product) => (
           <Grid key={product.id} xs={12} sm={6} md={3}>
             <ProductItem product={product} />
           </Grid>

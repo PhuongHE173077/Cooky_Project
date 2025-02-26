@@ -7,15 +7,25 @@ import axios from "../../utils/axiosCustomiz.";
 const initialState = {
   currentUser: null,
 }
+interface LoginCredentials {
+  email: string;
+  password: string;
+  admin: boolean
+}
 
 
 //xử lí catching api bất đồng bộ
 export const loginUserAPI = createAsyncThunk(
   'user/loginUserAPI',
-  async (data) => {
-    return await axios.post(`api/v1/users/login`, data)
+  async (data: LoginCredentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`api/v1/users/login`, data);
+      return response
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || 'Login failed');
+    }
   }
-)
+);
 
 export const registerUserAPI = createAsyncThunk(
   'user/registerUserAPI',
@@ -28,7 +38,7 @@ export const registerUserAPI = createAsyncThunk(
 export const logoutUserAPI = createAsyncThunk(
   'user/logoutUserAPI',
   async (showSuccessMessage: boolean = true) => {
-    const response = await axios.delete('v1/users/logout')
+    const response = await axios.delete('api/v1/users/logout')
     if (showSuccessMessage) {
       toast.success('Logout successfully!')
     }

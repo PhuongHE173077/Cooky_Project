@@ -7,6 +7,7 @@ import { cloudinaryProvider } from "~/providers/CloudinaryProvider"
 import { JwtProvider } from "~/providers/JwtProvider"
 import { pickUser } from '~/utils/algorithms'
 import ApiError from "~/utils/ApiError"
+import { USER_ROLES } from '~/utils/constants'
 const createNew = async (req) => {
   try {
     //check email exits
@@ -97,6 +98,7 @@ const login = async (data) => {
 
     if (!bcrypt.compareSync(data.password, userExits.password)) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'The email or password is incorrect!')
 
+    if (data.admin && userExits.role !== USER_ROLES.ADMIN) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'You are not admin!')
 
     /** if it don't have error, create token return frontend */
     //create user info in jwt token
@@ -203,11 +205,40 @@ const update = async (userId, data, userAvataFile) => {
   }
 }
 
+const getAll = async (userId) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const exitsUser = await userModal.findOneById(userId)
+
+
+    if (!exitsUser) throw new ApiError(StatusCodes.NOT_FOUND, 'User not found!')
+
+
+    if (!exitsUser.isActive) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'This account is not activated!')
+
+    if (exitsUser.role !== USER_ROLES.ADMIN) throw new ApiError(StatusCodes.NOT_ACCEPTABLE, 'You are not admin!')
+
+
+    const getAllUser = await userModal.getAll()
+
+    let userList = []
+
+    getAllUser.forEach(element => {
+      userList.push(pickUser(element))
+    })
+
+    return userList
+  } catch (error) {
+    throw error
+  }
+}
+
 
 export const userService = {
   createNew,
   login,
   verifityAccount,
   refreshToken,
-  update
+  update,
+  getAll
 }

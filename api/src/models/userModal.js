@@ -95,11 +95,22 @@ const updateUser = async (userId, data) => {
     throw new Error(error)
   }
 }
+
+const getAll = async () => {
+  try {
+    const result = await GET_DB().collection(USER_COLLECTION_NAME).find().toArray()
+
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 export const userModal = {
   USER_COLLECTION_NAME,
   USER_COLLECTION_SCHEMA,
   findOneByEmail,
   findOneById,
   createNew,
-  updateUser
+  updateUser,
+  getAll
 }
