@@ -19,25 +19,25 @@ export const Carosel = ({ DATA }) => {
       <View style={styles.imageContainer}>
         <Image source={{ uri: DATA[imageIndex] }} style={styles.image} />
         {
-          imageIndex > 0 && (
-            <MaterialIcons
-              name='navigate-next'
-              style={[styles.icon, { right: 10 }]}
-              size={24}
-              color='#fff'
-              onPress={() => setImageIndex(prevIndex => prevIndex + 1)}
-            />
+          imageIndex > 0 && (<MaterialIcons
+            name='navigate-before'
+            style={[styles.icon, { left: 10 }]}
+            size={24}
+            color='#fff'
+            onPress={() => setImageIndex(prevIndex => prevIndex - 1)}
+          />
+
           )
         }
 
         {
           imageIndex < DATA.length - 1 && (
             <MaterialIcons
-              name='navigate-before'
-              style={[styles.icon, { left: 10 }]}
+              name='navigate-next'
+              style={[styles.icon, { right: 10 }]}
               size={24}
               color='#fff'
-              onPress={() => setImageIndex(prevIndex => prevIndex - 1)}
+              onPress={() => setImageIndex(prevIndex => prevIndex + 1)}
             />
           )
         }

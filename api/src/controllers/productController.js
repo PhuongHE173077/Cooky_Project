@@ -5,9 +5,9 @@ const getDetails = async (req, res, next) => {
   try {
     const id = req.params.id
 
-    const board = await productService.getDetails(id)
+    const result = await productService.getDetails(id)
 
-    return res.status(StatusCodes.OK).json(board)
+    return res.status(StatusCodes.OK).json(result)
   } catch (error) {
     next(error)
   }
@@ -16,9 +16,9 @@ const getDetails = async (req, res, next) => {
 const getAll = async (req, res, next) => {
   try {
 
-    const board = await productService.getAll()
+    const result = await productService.getAll()
 
-    return res.status(StatusCodes.OK).json(board)
+    return res.status(StatusCodes.OK).json(result)
   } catch (error) {
     next(error)
   }

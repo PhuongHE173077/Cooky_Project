@@ -107,6 +107,7 @@ const login = async (data) => {
       email: userExits.email,
       role: userExits.role
     }
+    console.log("🚀 ~ login ~ userInfo:", userInfo)
 
 
     // create access token and fresh token

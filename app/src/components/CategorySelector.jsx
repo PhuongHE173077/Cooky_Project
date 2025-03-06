@@ -1,18 +1,20 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
-const categories = ['All', 'Fruity Cakes', 'Chocolate', 'Custom'];
 
-export default function CategorySelector() {
+export default function CategorySelector({ categories }) {
   return (
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
       style={styles.container}
     >
+      <TouchableOpacity style={styles.categoryButton}>
+        <Text style={styles.categoryText}>All</Text>
+      </TouchableOpacity>
       {categories.map((category, index) => (
         <TouchableOpacity key={index} style={styles.categoryButton}>
-          <Text style={styles.categoryText}>{category}</Text>
+          <Text style={styles.categoryText}>{category?.name}</Text>
         </TouchableOpacity>
       ))}
     </ScrollView>

@@ -6,6 +6,11 @@ export const fetchAllProductsAPIs = async () => {
   return axios.get('api/v1/products')
 }
 
+//Categories API
+export const fetchAllCategoriesAPIs = async () => {
+  return axios.get('api/v1/categories')
+}
+
 // user APIs 
 
 export const registerUserAPI = async (userData) => {
@@ -16,12 +21,22 @@ export const registerUserAPI = async (userData) => {
 
 
 export const verifyUserAPI = async (data) => {
-  const res = await axios.put(`v1/users/verify`, data)
+  const res = await axios.put(`api/v1/users/verify`, data)
   Toast.success('Account verify successfully!, Now you can login to enjoy our services!')
   return res
 }
 
 
 export const refreshTokenAPI = async () => {
-  return await axios.get(`v1/users/refresh_token`)
+  return await axios.get(`api/v1/users/refresh_token`)
+}
+
+
+//cart APIs
+export const fetchCartByUserIdAPIs = async (userId) => {
+  return await axios.get(`api/v1/carts`)
+}
+
+export const updateCartAPIs = async (data) => {
+  return await axios.put(`api/v1/carts`, data)
 }

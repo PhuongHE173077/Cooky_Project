@@ -15,6 +15,11 @@ import { ProductFilters } from '../product-filters';
 
 import type { FiltersProps } from '../product-filters';
 import { fetchAllProductsAPIs } from 'src/apis';
+import { Button } from '@mui/material';
+import { Iconify } from 'src/components/iconify';
+import { teal } from '@mui/material/colors';
+import { ModalCreateProduct } from '../product-create-new';
+
 
 // ----------------------------------------------------------------------
 
@@ -71,6 +76,10 @@ export function ProductsView() {
 
   const [openFilter, setOpenFilter] = useState(false);
 
+  const [openModalCreate, setOpenModalCreate] = useState(false)
+
+  const handleToggleNewProducts = () => { setOpenModalCreate(!openModalCreate) }
+
   const [filters, setFilters] = useState<FiltersProps>(defaultFilters);
 
   const handleOpenFilter = useCallback(() => {
@@ -95,9 +104,23 @@ export function ProductsView() {
 
   return (
     <DashboardContent>
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Products
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 5 }}>
+        <Typography variant="h4" >
+          Products
+        </Typography>
+        <Button startIcon={<Iconify icon="eva:plus-fill" />} variant="contained"
+          sx={{
+            backgroundColor: '#000',
+            '&:hover': {
+              backgroundColor: teal[400]
+            }
+          }}
+          onClick={handleToggleNewProducts}
+        >
+          ADD Product
+        </Button>
+      </Box>
+
 
       <CartIcon totalItems={8} />
 
@@ -148,6 +171,8 @@ export function ProductsView() {
       </Grid>
 
       <Pagination count={10} color="primary" sx={{ mt: 8, mx: 'auto' }} />
+
+      <ModalCreateProduct openModalCreate={openModalCreate} handleToggleNewProducts={handleToggleNewProducts} />
     </DashboardContent>
   );
 }
