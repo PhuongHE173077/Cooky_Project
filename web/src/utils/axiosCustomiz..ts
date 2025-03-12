@@ -54,6 +54,12 @@ instance.interceptors.response.use(function (response) {
         axiosRuduxStore.dispatch(logoutUserAPI(false))
     }
 
+    if (error?.response?.status === 406) {
+        //
+        axiosRuduxStore.dispatch(logoutUserAPI(false))
+    }
+
+
     const originalRequest = error.config;
     console.log('originalRequest:', originalRequest);
 

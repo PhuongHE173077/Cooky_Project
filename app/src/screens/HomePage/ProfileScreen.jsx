@@ -1,8 +1,15 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons, MaterialIcons as Icon } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
+import { logoutUserAPI } from '../../redux/user/userSlice';
 
 export const ProfileScreen = ({ navigation }) => {
+
+  const dispath = useDispatch()
+  const handleLogout = () => {
+    dispath(logoutUserAPI())
+  }
   return (
     <ScrollView style={styles.container}>
       <View style={styles.title}>
@@ -80,7 +87,7 @@ export const ProfileScreen = ({ navigation }) => {
         <Text style={styles.menuText}>Setting</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Login')} >
+      <TouchableOpacity style={styles.menuItem} onPress={() => handleLogout()} >
         <Ionicons name="settings-outline" size={24} color="#000" />
         <Text style={styles.menuText}>Log out</Text>
       </TouchableOpacity>

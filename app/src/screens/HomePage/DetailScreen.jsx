@@ -2,11 +2,24 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { updateCartAPIs } from '../../apis';
+import { TYPE_UPDATE_CART } from '../../utils/constant';
 
 export const ProductDetail = ({ route }) => {
   const [quantity, setQuantity] = useState(1);
   const navigation = useNavigation();
   const { product } = route.params;
+
+  const handleAddToCart = () => {
+    const cartItem = {
+      data: { productId: product._id, image: product.image, name: product.name, price: product.price, quantity: quantity },
+      type: TYPE_UPDATE_CART.ADD_ITEM_CART
+    }
+
+
+    updateCartAPIs(cartItem)
+      .then(res => console.log(res))
+  };
 
   return (
     <View style={styles.container}>
@@ -52,7 +65,7 @@ export const ProductDetail = ({ route }) => {
       </View>
 
       {/* Add to Basket Button */}
-      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+      <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={handleAddToCart}>
         <Text style={styles.buttonText}>Add To Basket</Text>
       </TouchableOpacity>
     </View>

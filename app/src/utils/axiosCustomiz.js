@@ -20,8 +20,8 @@ instance.defaults.timeout = 1000 * 60 * 5
 instance.defaults.withCredentials = true
 
 // //handle redux store in non-component files
-// let axiosRuduxStore
-// export const injectStore = mainStore => { axiosRuduxStore = mainStore }
+let axiosRuduxStore
+export const injectStore = mainStore => { axiosRuduxStore = mainStore }
 
 instance.interceptors.request.use(function (config) {
 
@@ -49,7 +49,7 @@ instance.interceptors.response.use(function (response) {
     // interceptorLoadingElements(false)
 
     //handle error refresh token
-    if (error?.response?.status === 401) {
+    if (error?.status === 401) {
         //
         axiosRuduxStore.dispatch(logoutUserAPI(false))
     }
@@ -86,7 +86,10 @@ instance.interceptors.response.use(function (response) {
         })
     }
     else {
-        Toast.error(error?.response?.data?.message)
+        Toast.show({
+            type: 'error',
+            text1: error?.response?.data?.message
+        })
     }
 
     return Promise.reject(error);

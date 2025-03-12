@@ -23,6 +23,7 @@ export const Transporting = () => {
 
 
 
+
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <Image source={item?.image} style={styles.image} />
@@ -48,11 +49,11 @@ export const Transporting = () => {
 
 
   return (
-    carts && carts?.shopingCart && carts?.shopingCart?.length > 0 ?
+    carts && carts?.shoppingCart && carts?.shoppingCart?.length > 0 ?
       <>
         <View style={styles.container}>
           <FlatList
-            data={carts?.shopingCart}
+            data={carts?.shoppingCart}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />
@@ -71,20 +72,26 @@ export const Transporting = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f8f9fa',
     paddingTop: 10,
   },
   item: {
     flexDirection: 'row',
     paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 10,
     marginRight: 15,
   },
   details: {
@@ -92,70 +99,84 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 2,
+    marginBottom: 4,
   },
   unit: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 2,
+    fontSize: 14,
+    color: '#888',
+    marginBottom: 4,
   },
   price: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#2ecc71',
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   quantityContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 5,
+    marginTop: 8,
   },
   quantity: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#333',
-    marginHorizontal: 10,
+    marginHorizontal: 12,
     fontWeight: 'bold',
   },
   quantityButton: {
-    backgroundColor: '#f0f0f0',
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
+    backgroundColor: '#e0e0e0',
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   quantityButtonText: {
-    fontSize: 16,
+    fontSize: 20,
     color: '#333',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   removeButton: {
-    backgroundColor: '#f0f0f0',
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
+    backgroundColor: '#ff4d4d',
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   removeButtonText: {
-    fontSize: 16,
-    color: '#333',
+    fontSize: 22,
+    color: '#fff',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   checkoutButton: {
     backgroundColor: '#2ecc71',
-    paddingVertical: 12,
+    paddingVertical: 14,
     alignItems: 'center',
-    marginHorizontal: 10,
-    marginBottom: 15,
-    borderRadius: 8,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
   checkoutText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 import axios from "../../utils/axiosCustomiz";
+import Toast from 'react-native-toast-message';
 
 
 //declare value state of slice in redux
@@ -28,9 +28,13 @@ export const registerUserAPI = createAsyncThunk(
 export const logoutUserAPI = createAsyncThunk(
   'user/logoutUserAPI',
   async (showSuccessMessage = true) => {
-    const response = await axios.delete('v1/users/logout')
+    const response = await axios.delete('api/v1/users/logout')
     if (showSuccessMessage) {
-      toast.success('Logout successfully!')
+      Toast.show({
+        type: 'success',
+        text1: 'Logut successfully',
+        text2: 'Please login again',
+      });
     }
     return response
   }
