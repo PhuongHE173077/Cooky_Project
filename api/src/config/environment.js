@@ -27,6 +27,7 @@ export const env = {
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  EXPO_PUBLIC_AIGURULAB_API_KEY: process.env.EXPO_PUBLIC_AIGURULAB_API_KEY,
 
   AUTHOR: process.env.AUTHOR
 }

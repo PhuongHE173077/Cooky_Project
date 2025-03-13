@@ -5,9 +5,10 @@ import { TextInput } from 'react-native-gesture-handler'
 import Button from '../Button/Button'
 import { PROMPT } from '@/src/services/prompt'
 import ActionSheet, { ActionSheetRef } from "react-native-actions-sheet";
-import { AnswerForAI } from '@/src/apis'
+import { AnswerForAI, getImageByAI } from '@/src/apis'
 import LoadingDialog from '../Loading/LoadingDialog'
 import { TYPE_ANSWER_AI } from '@/src/services/Constant'
+import { GenerateAIImage } from '@/src/services/AiGenerateImage'
 
 export default function CreateRecipe() {
   const [userInput, setUserInput] = useState<string>('')
@@ -34,11 +35,19 @@ export default function CreateRecipe() {
   }
 
   const generateCompleteRecipe = async (option: any) => {
-    actionSheetRef.current?.hide(),
-      setOpenLoading(true)
+    actionSheetRef.current?.hide()
+    // setOpenLoading(true)
     const PROMPTC = option.recipeName + 'Description' + option.description + PROMPT.GENERATE_COMPLETE_RECIPE
     const result = await AnswerForAI(PROMPTC, TYPE_ANSWER_AI.RECIPE_DETAIL)
-    console.log(result);
+    await GenerateRecipeImage(result?.imagePrompt)
+
+    setOpenLoading(false)
+
+  }
+
+  const GenerateRecipeImage = async (imaPrompt: string) => {
+    const result = await getImageByAI(imaPrompt)
+    console.log("🚀 ~ GenerateRecipeImage ~ result:", result)
 
   }
   return (
