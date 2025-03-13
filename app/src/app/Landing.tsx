@@ -49,7 +49,7 @@ export default function Landing() {
           <Text style={styles.title}>Cook mate AI | Find, Create & Enjoy Delicious Recipes</Text>
           <Text style={styles.subtitle}>Generate delicious recipes in seconds with the power of AI</Text>
 
-          <TouchableOpacity style={styles.button} onPress={() => router.replace('/tabs/Home')}>
+          <TouchableOpacity style={styles.button} onPress={() => { router.replace('/tabs/Home') }}>
             <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
         </View>

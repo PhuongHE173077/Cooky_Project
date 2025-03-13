@@ -8,7 +8,6 @@ import ActionSheet, { ActionSheetRef } from "react-native-actions-sheet";
 import { AnswerForAI, getImageByAI } from '@/src/apis'
 import LoadingDialog from '../Loading/LoadingDialog'
 import { TYPE_ANSWER_AI } from '@/src/services/Constant'
-import { GenerateAIImage } from '@/src/services/AiGenerateImage'
 
 export default function CreateRecipe() {
   const [userInput, setUserInput] = useState<string>('')
@@ -36,7 +35,7 @@ export default function CreateRecipe() {
 
   const generateCompleteRecipe = async (option: any) => {
     actionSheetRef.current?.hide()
-    // setOpenLoading(true)
+    setOpenLoading(true)
     const PROMPTC = option.recipeName + 'Description' + option.description + PROMPT.GENERATE_COMPLETE_RECIPE
     const result = await AnswerForAI(PROMPTC, TYPE_ANSWER_AI.RECIPE_DETAIL)
     await GenerateRecipeImage(result?.imagePrompt)

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "cooky",
-    "slug": "cooky",
+    "name": "Cooky",
+    "slug": "Cooky",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "cooky",
+    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
