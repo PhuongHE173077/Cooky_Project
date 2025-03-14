@@ -9,7 +9,7 @@ const { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } = require("~/utils/validations"
 const RECIPES_COLLECTION = 'Recipes'
 const RECIPES_COLLECTION_SCHEMA = Joi.object({
   recipeName: Joi.string().required(),
-  recipeDescription: Joi.string().required(),
+  description: Joi.string().required(),
   imagePrompt: Joi.string().required(),
 
   ingredients: Joi.array().items({
@@ -50,6 +50,24 @@ const getDetails = async (id) => {
   }
 }
 
+const getRevipeByCategory = async (id) => {
+  try {
+    //
+
+    const result = await GET_DB().collection(RECIPES_COLLECTION).aggregate([
+      {
+        $match: {
+          categoryId: new ObjectId(id)
+        }
+      }
+    ]).toArray()
+
+    return result
+  } catch (error) {
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Not found')
+  }
+}
+
 const getAll = async () => {
   try {
     //
@@ -74,5 +92,6 @@ export const recipeModel = {
   RECIPES_COLLECTION_SCHEMA,
   findById,
   getDetails,
-  getAll
+  getAll,
+  getRevipeByCategory
 }

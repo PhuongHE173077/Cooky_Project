@@ -13,6 +13,17 @@ const getDetails = async (req, res, next) => {
   }
 }
 
+const getRevipeByCategory = async (req, res, next) => {
+  try {
+    const id = req.params.categoryId
+    const result = await recipeService.getRevipeByCategory(id)
+
+    return res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
+}
+
 const getAll = async (req, res, next) => {
   try {
 
@@ -26,5 +37,6 @@ const getAll = async (req, res, next) => {
 
 export const recipeController = {
   getDetails,
-  getAll
+  getAll,
+  getRevipeByCategory
 }

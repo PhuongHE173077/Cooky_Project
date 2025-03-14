@@ -6,6 +6,7 @@ import { store, persistor } from '../redux/store';
 import Toast from "react-native-toast-message";
 import { toastConfig } from "../services/toastCustomize";
 import { injectStore } from "../services/axiosCustomiz";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 injectStore(store)
 
@@ -40,6 +41,14 @@ export default function RootLayout() {
               options={{
                 headerTransparent: true,
                 headerTitle: ''
+              }}
+            />
+            <Stack.Screen name="recipe/recipeDetail"
+              options={{
+                headerTitle: 'Detail',
+                headerRight: () => (
+                  <Ionicons name="share-outline" size={24} color="black" style={{ marginRight: 10 }} />
+                )
               }}
             />
           </Stack>

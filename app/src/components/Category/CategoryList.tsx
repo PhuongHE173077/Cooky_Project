@@ -12,12 +12,9 @@ export default function CategoryList() {
   useEffect(() => {
     fetchCategoryAPIs()
       .then(res => {
-
         if (Array.isArray(res)) setCategories(res)
-      }
-      )
+      })
   }, [])
-
 
   return (
     categories &&
@@ -30,7 +27,7 @@ export default function CategoryList() {
         renderItem={({ item, index }: any) => (
           <TouchableOpacity style={styles.categoryContainer} onPress={() => router.push({
             pathname: '/recipe/recipeByCategory',
-            params: { categoryName: item.name }
+            params: { categoryId: item._id, categoryName: item.name }
           }
           )} >
             <Image source={{ uri: item?.image }}

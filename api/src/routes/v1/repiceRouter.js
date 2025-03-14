@@ -5,8 +5,7 @@ import { recipeController } from '~/controllers/recipeController'
 const express = require('express')
 const Router = express()
 
-Router.post('/create', recipeValidation.createNew, AiRouter.post('/'))
-
 Router.get('/', recipeController.getAll)
-
-export const RepiceRouter = Router
+  .post('/create', recipeValidation.createNew, AiRouter.post('/'))
+  .get('/:categoryId', recipeController.getRevipeByCategory)
+export const repiceRouter = Router

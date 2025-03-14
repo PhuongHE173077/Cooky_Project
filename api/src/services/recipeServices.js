@@ -17,6 +17,20 @@ const getDetails = async (id) => {
   }
 }
 
+const getRevipeByCategory = async (id) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const exitProduct = await recipeModel.getRevipeByCategory(id)
+    if (!exitProduct) {
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Product not found')
+    }
+
+    return exitProduct
+  } catch (error) {
+    throw error
+  }
+}
+
 const getAll = async () => {
   // eslint-disable-next-line no-useless-catch
   try {
@@ -30,5 +44,6 @@ const getAll = async () => {
 
 export const recipeService = {
   getDetails,
-  getAll
+  getAll,
+  getRevipeByCategory
 }

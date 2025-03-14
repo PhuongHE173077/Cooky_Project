@@ -19,3 +19,12 @@ export const getImageByAI = async (imagePrompt: string) => {
 export const loginAPIs = async (email: string, password: string) => {
   return await axiosCustomize.post('api/v1/users/login', { email, password })
 }
+
+//recipe APIs
+export const fetchRecipeAPIs = async () => {
+  return await axiosCustomize.get('api/v1/recipes')
+}
+
+export const fetchRecipeByCategoryAPIs = async (categoryId: any) => {
+  return await axiosCustomize.get('api/v1/recipes/' + categoryId)
+}
