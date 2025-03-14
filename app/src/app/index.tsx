@@ -10,7 +10,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Redirect href={'/Landing'} />
+      <Redirect href={'/auth/Login'} />
     </View>
   );
 }

@@ -1,12 +1,14 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { fetchCategoryAPIs } from '@/src/apis'
 import { Category } from '@/src/model/interface'
 import { FlatList } from 'react-native-gesture-handler'
+import { useRouter } from 'expo-router'
 
 export default function CategoryList() {
   const [categories, setCategories] = useState<any[]>([])
 
+  const router = useRouter()
   useEffect(() => {
     fetchCategoryAPIs()
       .then(res => {
@@ -26,7 +28,11 @@ export default function CategoryList() {
         data={categories}
         numColumns={4}
         renderItem={({ item, index }: any) => (
-          <View style={styles.categoryContainer}>
+          <TouchableOpacity style={styles.categoryContainer} onPress={() => router.push({
+            pathname: '/recipe/recipeByCategory',
+            params: { categoryName: item.name }
+          }
+          )} >
             <Image source={{ uri: item?.image }}
               style={{
                 height: 40,
@@ -37,7 +43,7 @@ export default function CategoryList() {
               fontFamily: 'outfit-bold',
               marginTop: 3
             }}>{item?.name}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

@@ -19,6 +19,18 @@ export default function RootLayout() {
           headerShown: false
         }}
       />
+      <Stack.Screen name="auth"
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen name="recipe/recipeByCategory"
+        options={{
+          headerTransparent: true,
+          headerTitle: ''
+        }}
+      />
+
     </Stack>
   )
 
