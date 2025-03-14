@@ -17,4 +17,6 @@ Router.use('/carts', cartRouter)
 
 Router.use('/ai', AiRouter)
 
+Router.use('/recipes', AiRouter)
+
 export const APIs_V1 = Router
