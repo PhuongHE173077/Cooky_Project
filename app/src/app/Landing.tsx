@@ -1,9 +1,9 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
 import { Marquee } from '@animatereactnative/marquee'
+import { useRouter } from 'expo-router'
+import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Colors } from '../services/Colors'
-import { router } from 'expo-router'
 
 export default function Landing() {
   const imageList = [
@@ -17,6 +17,8 @@ export default function Landing() {
     require('../assets/images/6.jpg'),
     require('../assets/images/5.jpg')
   ]
+
+  const router = useRouter()
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -49,7 +51,7 @@ export default function Landing() {
           <Text style={styles.title}>Cook mate AI | Find, Create & Enjoy Delicious Recipes</Text>
           <Text style={styles.subtitle}>Generate delicious recipes in seconds with the power of AI</Text>
 
-          <TouchableOpacity style={styles.button} onPress={() => { router.replace('/auth/Login') }}>
+          <TouchableOpacity style={styles.button} onPress={() => { router.push('/auth/Login') }}>
             <Text style={styles.buttonText}>Get Started</Text>
           </TouchableOpacity>
         </View>

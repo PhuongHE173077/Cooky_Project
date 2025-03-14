@@ -1,7 +1,16 @@
 import { Redirect } from "expo-router";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
+import { useSelector } from "react-redux";
 
 export default function Index() {
+  const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
+
+
+  if (!isAuthenticated) {
+    return <Redirect href={'/auth/Login'} />
+  }
+
   return (
     <View
       style={{
@@ -10,7 +19,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Redirect href={'/auth/Login'} />
+      <Redirect href={'/tabs/Home'} />
     </View>
   );
 }

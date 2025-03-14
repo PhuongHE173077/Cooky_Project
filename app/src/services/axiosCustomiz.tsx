@@ -1,10 +1,18 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
+import { logout } from '../redux/authSlice';
 
 const axiosCustomize = axios.create({
   baseURL: 'http://localhost:9999/',
 })
 
-axiosCustomize.interceptors.request.use(function (config) {
+let axiosRuduxStore: any
+export const injectStore = (mainStore: any) => { axiosRuduxStore = mainStore }
+
+axiosCustomize.interceptors.request.use(async (config) => {
+  const accessToken = await AsyncStorage.getItem('accessToken')
+
+  config.headers.Authorization = `Bearer ${accessToken}`
 
   return config;
 }, function (error) {
@@ -16,6 +24,10 @@ axiosCustomize.interceptors.response.use(function (response) {
 
   return response && response.data ? response.data : response;
 }, function (error) {
+
+  if (error.status === 401) {
+    axiosRuduxStore.dispatch(logout())
+  }
 
   return Promise.reject(error);
 });

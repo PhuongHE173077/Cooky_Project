@@ -3,34 +3,37 @@ import { env } from "~/config/environment"
 import { JwtProvider } from "~/providers/JwtProvider"
 import ApiError from "~/utils/ApiError"
 
-//Middleware ensure user is authorized: authenticate jwt accessToken recived from frontend is correct or not
+// Middleware authenticate jwt accessToken
 const isAuthorized = async (req, res, next) => {
-  //get accessToken from cookie
-  const clientToken = req.cookies?.accessToken
+
+  let clientToken = req.cookies?.accessToken || req.headers?.authorization
 
   if (!clientToken) {
-    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized(Token not found)'))
+    return next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized (Token not found)'))
   }
+
+  if (clientToken.startsWith('Bearer ')) {
+    clientToken = clientToken.split(' ')[1]
+  }
+
   try {
-    //verify token
+    // Verify token
     const accessTokenDecoded = await JwtProvider.verifyToken(clientToken, env.ACCESS_TOKEN_SECRET_SIGNATURE)
 
-    //if token is valid , save token to req to use later
+
     req.jwtDecoded = accessTokenDecoded
 
-    //allow next
     next()
   } catch (error) {
-    //if accesToken is expired(hết hạn) return error 410 for FE to call api refeshToken
-    if (error?.message?.includes('jwt expired')) {
-      next(new ApiError(StatusCodes.GONE, 'Token is expired!'))
-      return
+    const errorMessage = error?.message || ''
+
+    if (errorMessage.includes('jwt expired')) {
+      return next(new ApiError(StatusCodes.GONE, 'Access Token is expired'))
     }
 
-    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Unauthorized'))
+    next(new ApiError(StatusCodes.UNAUTHORIZED, 'Invalid Token'))
   }
 }
-
 
 export const authMiddlewares = {
   isAuthorized
