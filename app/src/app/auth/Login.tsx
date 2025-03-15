@@ -2,12 +2,12 @@ import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } from 'reac
 import React, { useState } from 'react'
 import { Colors } from '@/src/services/Colors'
 import Button from '@/src/components/Button/Button'
-import { Link, router, useRouter } from 'expo-router'
+import { Link, Redirect, router, useRouter } from 'expo-router'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Toast from 'react-native-toast-message'
 import { loginAPIs } from '@/src/apis'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '@/src/redux/authSlice'
 
 
@@ -20,6 +20,11 @@ export default function Login() {
   const [errorPassword, setErrorPassword] = useState('')
 
   const dispath = useDispatch()
+  const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
+
+  if (isAuthenticated) {
+    return <Redirect href={'/tabs/Home'} />
+  }
 
   const handleLogin = async () => {
     setErrorEmail('')
