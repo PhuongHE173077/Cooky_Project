@@ -28,3 +28,8 @@ export const fetchRecipeAPIs = async () => {
 export const fetchRecipeByCategoryAPIs = async (categoryId: any) => {
   return await axiosCustomize.get('api/v1/recipes/' + categoryId)
 }
+
+//Product APIs
+export const fetchAllProductAPIs = async () => {
+  return await axiosCustomize.get('api/v1/products')
+}
