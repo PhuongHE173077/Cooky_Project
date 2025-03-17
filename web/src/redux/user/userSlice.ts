@@ -55,16 +55,13 @@ export const updateUserAPI = createAsyncThunk(
 )
 
 
-//declare silce in redux store
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  // reducer : nơi xửu lý dữ liệu đồng bộ
   reducers: {
 
 
   },
-  //extraReducers: Nơi xửu lý dũ liệu bất đồng bộ
   extraReducers: (builder) => {
     builder.addCase(loginUserAPI.fulfilled, (state: any, action) => {
       const user = action.payload
