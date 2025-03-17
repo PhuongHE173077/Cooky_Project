@@ -14,12 +14,16 @@ export default function ProfileFeature() {
 
   const handleLogout = async () => {
     dispath(logout())
-    await AsyncStorage.removeItem('accessToken')
+
+    // await AsyncStorage.removeItem('accessToken')
+
     router.replace('/auth/Login')
   }
   return (
     <View style={{ marginTop: 20 }}>
-      <CardFeature name="Orders" IconName="shopping-bag" onPress={() => { }} iconLibrary={Feather} />
+
+      <CardFeature name="Orders" IconName="shopping-bag" onPress={() => router.push('/cart/ShoppingCart')} iconLibrary={Feather} />
+
       <CardFeature name="My Details" IconName="card-account-details-outline" onPress={() => { }} iconLibrary={MaterialCommunityIcons} />
       <CardFeature name="Delivery Address" IconName="location-outline" onPress={() => { }} iconLibrary={Ionicons} />
       <CardFeature name="Payment Methods" IconName="cc-mastercard" onPress={() => { }} iconLibrary={FontAwesome} />

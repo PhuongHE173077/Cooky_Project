@@ -16,8 +16,9 @@ export default function ProductCard({ product }: any) {
         marginLeft: 20,
         borderColor: '#E2E2E2',
         borderRadius: 10,
-        height: 220,
-        width: 150,
+
+        height: 248.51,
+        width: 173.32,
       }}>
         <View style={{
           justifyContent: 'center',
@@ -32,7 +33,7 @@ export default function ProductCard({ product }: any) {
           <Text
             style={{
               fontFamily: 'semibold',
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: 'bold'
             }}
           >{product.name}</Text>
@@ -51,10 +52,11 @@ export default function ProductCard({ product }: any) {
             <Text
               style={{
                 fontFamily: 'semibold',
-                fontSize: 17,
+
+                fontSize: 18,
                 fontWeight: 'bold',
               }}
-            >$ 444</Text>
+            >$ {product.price}</Text>
             <Text
               style={{
                 fontFamily: 'outfit-bold',

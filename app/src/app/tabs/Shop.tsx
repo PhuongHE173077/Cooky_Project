@@ -31,10 +31,6 @@ export default function Shop() {
 
 
           <ShoppingHeader />
-
-          <Search />
-
-
           <CarouselRN data={dataSlider} />
 
           <ExclusiveOffer products={products} />

@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -15,6 +15,7 @@ export default function RootLayout() {
     'outfit': require('../assets/fonts/Outfit-Regular.ttf'),
     'outfit-bold': require('../assets/fonts/Outfit-Bold.ttf')
   });
+  const router = useRouter();
 
   return (
     <Provider store={store}>
@@ -33,8 +34,12 @@ export default function RootLayout() {
             />
             <Stack.Screen name="auth"
               options={{
+                headerTitle: '',
                 headerTransparent: true,
-                headerTitle: ''
+                // headerShown: false,
+                headerLeft: () => (
+                  <Ionicons name="chevron-back" size={24} color="black" style={{ marginLeft: 10 }} onPress={() => router.replace('/Landing')} />
+                )
               }}
             />
             <Stack.Screen name="recipe/recipeByCategory"
@@ -46,6 +51,16 @@ export default function RootLayout() {
             <Stack.Screen name="recipe/recipeDetail"
               options={{
                 headerTitle: 'Detail',
+                headerRight: () => (
+                  <Ionicons name="share-outline" size={24} color="black" style={{ marginRight: 10 }} />
+                )
+              }}
+            />
+
+            <Stack.Screen name="cart/ShoppingCart"
+              options={{
+                headerTitle: 'My Cart',
+                headerTitleAlign: 'center',
                 headerRight: () => (
                   <Ionicons name="share-outline" size={24} color="black" style={{ marginRight: 10 }} />
                 )

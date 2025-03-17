@@ -6,7 +6,8 @@ import { Colors } from '@/src/services/Colors'
 
 export default function Search() {
   return (
-    <View style={{ padding: 15 }}>
+
+    <View style={{ width: '90%' }}>
       <View style={{
         flexDirection: 'row',
         alignItems: 'center',
