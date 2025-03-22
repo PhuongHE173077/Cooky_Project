@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 export default function Index() {
-  const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
+  const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
 
   if (!isAuthenticated) {

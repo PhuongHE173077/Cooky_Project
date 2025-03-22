@@ -20,7 +20,7 @@ export default function Login() {
   const [errorPassword, setErrorPassword] = useState('')
 
   const dispath = useDispatch()
-  const isAuthenticated = useSelector((state: any) => state.isAuthenticated);
+  const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
   if (isAuthenticated) {
     return <Redirect href={'/tabs/Home'} />

@@ -6,7 +6,7 @@ import { Colors } from '@/src/services/Colors'
 
 export default function ProfileHearder() {
 
-  const currentUser = useSelector((state: any) => state.user)
+  const currentUser = useSelector((state: any) => state.auth.user)
 
   return (
     <View style={{

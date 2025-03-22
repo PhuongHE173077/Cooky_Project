@@ -1,8 +1,12 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '@/src/services/Colors'
+import { useRouter } from 'expo-router'
 
 export default function ProductCard({ product }: any) {
+
+  const router = useRouter()
+
   return (
     <View
 
@@ -20,15 +24,20 @@ export default function ProductCard({ product }: any) {
         height: 248.51,
         width: 173.32,
       }}>
-        <View style={{
+        <TouchableOpacity style={{
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
           height: 120
-        }}>
+        }}
+          onPress={() => router.push({
+            pathname: '/product/productDetail',
+            params: { product: JSON.stringify(product) }
+          })}
+        >
           <Image source={{ uri: product.image }} style={{ width: 100, height: 80, borderRadius: 10 }} />
 
-        </View>
+        </TouchableOpacity>
         <View style={{ padding: 10 }}>
           <Text
             style={{

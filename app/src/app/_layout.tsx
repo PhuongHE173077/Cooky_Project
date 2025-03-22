@@ -66,6 +66,15 @@ export default function RootLayout() {
                 )
               }}
             />
+
+            <Stack.Screen name="product/productDetail"
+              options={{
+                headerTitle: '',
+                headerTitleAlign: 'center',
+                headerTransparent: true,
+
+              }}
+            />
           </Stack>
           <Toast config={toastConfig} />
         </>

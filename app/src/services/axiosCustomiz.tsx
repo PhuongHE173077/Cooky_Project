@@ -3,7 +3,7 @@ import axios from 'axios'
 import { logout } from '../redux/authSlice';
 
 const axiosCustomize = axios.create({
-  baseURL: 'http://localhost:9999/',
+  baseURL: 'http://localhost:9998/',
 })
 
 let axiosRuduxStore: any
@@ -25,7 +25,7 @@ axiosCustomize.interceptors.response.use(function (response) {
   return response && response.data ? response.data : response;
 }, function (error) {
 
-  if (error.status === 401) {
+  if (error.status === 410) {
     axiosRuduxStore.dispatch(logout())
   }
 
