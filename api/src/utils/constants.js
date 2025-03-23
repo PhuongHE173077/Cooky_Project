@@ -43,3 +43,8 @@ export const TYPE_ANSWER_AI = {
   RECIPE: 'RECIPE',
   RECIPE_DETAIL: 'RECIPE_DETAIL'
 }
+
+export const TYPE_UPDATE_QUANTITY_CART = {
+  INCREASE_QUANTITY_CART: 'increasequantitycart',
+  DECREASE_QUANTITY_CART: 'decreasequantitycart'
+}

@@ -4,7 +4,6 @@ import { cartService } from "~/services/cartService"
 const getCartByUserId = async (req, res, next) => {
   try {
     const userId = req.jwtDecoded._id
-    console.log("🚀 ~ getCartByUserId ~ userId:", userId)
 
     const result = await cartService.getCartByUserId(userId)
 
@@ -19,6 +18,7 @@ const updateCart = async (req, res, next) => {
     const userId = req.jwtDecoded._id
 
     const dataUpdate = req.body
+    // console.log("🚀 ~ updateCart ~ dataUpdate:", dataUpdate)
 
     const result = await cartService.updateCart(userId, dataUpdate)
 
@@ -28,8 +28,23 @@ const updateCart = async (req, res, next) => {
   }
 }
 
+const updateQuantity = async (req, res, next) => {
+  try {
+    const userId = req.jwtDecoded._id
+
+    const dataUpdate = req.body
+    // console.log("🚀 ~ updateCart ~ dataUpdate:", dataUpdate)
+
+    const result = await cartService.updateQuantity(userId, dataUpdate)
+
+    return res.status(StatusCodes.OK).json(result)
+  } catch (error) {
+    next(error)
+  }
+}
 
 export const cartController = {
   getCartByUserId,
-  updateCart
+  updateCart,
+  updateQuantity
 }

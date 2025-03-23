@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes"
 import { ObjectId } from "mongodb"
 import { GET_DB } from "~/config/mongodb"
 import ApiError from "~/utils/ApiError"
-import { TYPE_UPDATE_CART } from "~/utils/constants"
+import { TYPE_UPDATE_CART, TYPE_UPDATE_QUANTITY_CART } from "~/utils/constants"
 const Joi = require("joi")
 const { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } = require("~/utils/validations")
 
@@ -38,16 +38,46 @@ const updateCart = async (userId, dataUpdate) => {
     //
     let option = null
 
-    if (dataUpdate.type === TYPE_UPDATE_CART.ADD_ITEM_CART) {
-      option = { $push: { shoppingCart: dataUpdate.data } }
+    const cart = await getDetails(userId)
+
+    if (cart.shoppingCart.find(item => item.productId === dataUpdate.data.productId)) {
+      return await updateQuantity(userId, { type: TYPE_UPDATE_QUANTITY_CART.INCREASE_QUANTITY_CART, itemId: dataUpdate.data.productId })
+    } else {
+      if (dataUpdate.optionCart === TYPE_UPDATE_CART.ADD_ITEM_CART) {
+        option = { $push: { shoppingCart: dataUpdate.data } }
+      }
+      else {
+        option = { $pull: { shoppingCart: dataUpdate.data } }
+      }
+      const result = await GET_DB().collection(CART_COLLECTION).findOneAndUpdate(
+        { userId: new ObjectId(userId) },
+        option,
+        { returnDocument: 'after' }
+      )
+      return result.value
     }
-    else {
-      option = { $pull: { shoppingCart: dataUpdate.data } }
+  } catch (error) {
+    throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Not found')
+  }
+}
+
+const updateQuantity = async (userId, dataUpdate) => {
+  try {
+    //
+    const cart = await getDetails(userId)
+
+
+    if (dataUpdate.type === TYPE_UPDATE_CART.DELETE_ITEM_CART) {
+      cart.shoppingCart = cart.shoppingCart.filter(item => item.productId !== dataUpdate.itemId)
+    } else {
+      const shoppingCart = cart.shoppingCart.find(item => item.productId === dataUpdate.itemId)
+      shoppingCart.quantity = dataUpdate.type === TYPE_UPDATE_QUANTITY_CART.INCREASE_QUANTITY_CART ? shoppingCart.quantity + 1 : shoppingCart.quantity - 1
     }
+
 
     const result = await GET_DB().collection(CART_COLLECTION).findOneAndUpdate(
       { userId: new ObjectId(userId) },
-      option,
+      { $set: { shoppingCart: cart.shoppingCart } },
       { returnDocument: 'after' }
     )
     return result.value
@@ -69,6 +99,7 @@ export const cartModel = {
   CART_COLLECTION_SCHEMA,
   findById,
   getDetails,
-  updateCart
+  updateCart,
+  updateQuantity
 
 }

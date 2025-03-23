@@ -2,10 +2,28 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '@/src/services/Colors'
 import { useRouter } from 'expo-router'
+import { useDispatch } from 'react-redux'
+import { TYPE_UPDATE_CART } from '@/src/services/Constant'
+import { addCart } from '@/src/redux/cartSlice'
 
 export default function ProductCard({ product }: any) {
 
   const router = useRouter()
+  const dispatch = useDispatch()
+
+  const handAddCard = () => {
+
+    const data = {
+      productId: product._id,
+      image: product.image,
+      name: product.name,
+      price: product.price,
+      unit: product.unit,
+      quantity: 1
+    }
+    const optionCart = TYPE_UPDATE_CART.ADD_ITEM_CART
+    dispatch(addCart({ data, optionCart }))
+  }
 
   return (
     <View
@@ -66,18 +84,21 @@ export default function ProductCard({ product }: any) {
                 fontWeight: 'bold',
               }}
             >$ {product.price}</Text>
-            <Text
-              style={{
-                fontFamily: 'outfit-bold',
-                fontSize: 17,
-                color: Colors.WHITE,
-                backgroundColor: Colors.PRIMARY,
-                padding: 10,
-                paddingHorizontal: 15,
-                borderRadius: 15
+            <TouchableOpacity onPress={() => handAddCard(product)}>
+              <Text
+                style={{
+                  fontFamily: 'outfit-bold',
+                  fontSize: 17,
+                  color: Colors.WHITE,
+                  backgroundColor: Colors.PRIMARY,
+                  padding: 10,
+                  paddingHorizontal: 15,
+                  borderRadius: 15
 
-              }}
-            >+</Text>
+                }}
+              >+</Text>
+            </TouchableOpacity>
+
           </View>
         </View>
       </View>
