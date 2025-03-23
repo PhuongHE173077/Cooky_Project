@@ -1,4 +1,3 @@
-import { type } from '@mui/lab/themeAugmentation';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axiosCustomize from '../services/axiosCustomiz';
 const initialState = {

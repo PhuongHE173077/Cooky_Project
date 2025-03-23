@@ -37,3 +37,12 @@ export const fetchAllProductAPIs = async () => {
 export const fetchCartAPIs = async () => {
   return await axiosCustomize.get('api/v1/carts')
 }
+
+export const paymentAPIs = async () => {
+  return await axiosCustomize.post('api/v1/payment')
+}
+
+//payment APIs
+export const fetchStripeKeys = async () => {
+  return await axiosCustomize.get('api/v1/stripe/keys')
+}

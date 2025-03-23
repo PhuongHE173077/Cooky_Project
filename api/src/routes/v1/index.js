@@ -1,6 +1,7 @@
 import { AiRouter } from './aiRouter'
 import { cartRouter } from './cartRouter'
 import { CategoryRouter } from './categotyRoute'
+import { PaymentRouter } from './paymentRoter'
 import { ProductRouter } from './productRoute'
 import { repiceRouter } from './repiceRouter'
 import { userRoutes } from './userRoute'
@@ -19,5 +20,7 @@ Router.use('/carts', cartRouter)
 Router.use('/ai', AiRouter)
 
 Router.use('/recipes', repiceRouter)
+
+Router.use('/payment', PaymentRouter)
 
 export const APIs_V1 = Router

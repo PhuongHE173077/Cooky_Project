@@ -1,16 +1,21 @@
 
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Colors } from '@/src/services/Colors'
 import Entypo from '@expo/vector-icons/Entypo'
 import Search from '../Search/Search'
 import { Feather } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCart } from '@/src/redux/cartSlice'
 
 export default function ShoppingHeader() {
   const router = useRouter()
   const cart = useSelector((state: any) => state.cart.cart)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchCart())
+  }, [])
   return (
     <View>
       <View style={{ height: 120, justifyContent: 'center', alignItems: 'center', width: '100%', padding: 20, marginTop: 20 }}>

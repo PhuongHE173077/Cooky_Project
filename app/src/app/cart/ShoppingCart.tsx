@@ -1,5 +1,5 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useRef } from 'react'
+import { ActivityIndicator, FlatList, Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCart, updateQuanityCart } from '@/src/redux/cartSlice'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
@@ -7,11 +7,13 @@ import Button from '@/src/components/Button/Button'
 import { TYPE_UPDATE_CART, TYPE_UPDATE_QUANTITY_CART } from '@/src/services/Constant'
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet'
 import { Colors } from '@/src/services/Colors'
-
+import { paymentAPIs } from '@/src/apis'
 export default function ShoppingCart() {
   const currentCart = useSelector((state: any) => state.cart.cart)
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const dispatch = useDispatch();
+  const [view, setView] = useState(false)
+  const [payUrl, setUrl] = useState('')
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch])
@@ -22,6 +24,11 @@ export default function ShoppingCart() {
     dispatch(updateQuanityCart({ itemId: item.productId, type }))
   }
 
+  const handlePlaceOrder = async () => {
+    await paymentAPIs().then(res => {
+      Linking.openURL(res.payUrl)
+    })
+  }
   return (
 
     <View style={{ flex: 1, backgroundColor: 'white', position: 'relative' }}>
@@ -132,7 +139,7 @@ export default function ShoppingCart() {
 
             <Button
               lable={`Place Order`}
-              onPress={() => actionSheetRef.current?.show()} icon='cart' loading={false} />
+              onPress={() => handlePlaceOrder()} icon='cart' loading={false} />
 
           </View>
 
@@ -140,6 +147,8 @@ export default function ShoppingCart() {
         </View>
 
       </ActionSheet>
+
+
 
     </View >
   )

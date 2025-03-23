@@ -8,7 +8,7 @@ import { refreshTokenAPI } from "src/apis";
 // import { reloadBoard } from "~/redux/activeBoard/activeBoardSlice";
 
 const instance = axios.create({
-    baseURL: 'http://localhost:9999/',
+    baseURL: 'http://localhost:9998/',
 });
 
 
